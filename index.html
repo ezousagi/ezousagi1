@@ -9,50 +9,46 @@
     <style>
       body {
         font-family: 'Zen Maru Gothic', sans-serif;
-        background-color: #fdfbf7; /* Washi paper off-white */
+        background-color: #fdfbf7;
+        margin: 0;
       }
-      /* Custom scrollbar for webkit */
-      ::-webkit-scrollbar {
-        width: 8px;
+      /* ローディングインジケーター（スクリプト読み込み前用） */
+      #root:empty::before {
+        content: "読み込み中...";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #999;
+        font-size: 0.9rem;
       }
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #e5e7eb;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #d1d5db;
-      }
-      .fade-enter {
-        opacity: 0;
-      }
-      .fade-enter-active {
-        opacity: 1;
-        transition: opacity 500ms ease-in;
-      }
-      .fade-exit {
-        opacity: 1;
-      }
-      .fade-exit-active {
-        opacity: 0;
-        transition: opacity 300ms ease-in;
-      }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
     </style>
-  <script type="importmap">
+    
+    <!-- Import Map: 依存関係の定義 -->
+    <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0",
+    "framer-motion": "https://esm.sh/framer-motion@11.11.11",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "framer-motion": "https://esm.sh/framer-motion@^12.23.26"
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
   }
 }
 </script>
-</head>
+
+    <!-- esm.sh loader: ブラウザで直接 TSX を実行可能にする魔法のスクリプト -->
+    <script type="module" src="https://esm.sh/run"></script>
+  </head>
   <body>
     <div id="root"></div>
+    
+    <!-- type="text/tsx" にすることで、上のローダーが自動的に変換・実行します -->
+    <script type="text/tsx" src="./index.tsx"></script>
   </body>
 </html>
