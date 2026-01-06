@@ -12,7 +12,6 @@
         background-color: #fdfbf7;
         margin: 0;
       }
-      /* ローディングインジケーター（スクリプト読み込み前用） */
       #root:empty::before {
         content: "読み込み中...";
         display: flex;
@@ -27,7 +26,6 @@
       ::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
     </style>
     
-    <!-- Import Map: 依存関係の定義 -->
     <script type="importmap">
 {
   "imports": {
@@ -42,13 +40,12 @@
 }
 </script>
 
-    <!-- esm.sh loader: ブラウザで直接 TSX を実行可能にする魔法のスクリプト -->
-    <script type="module" src="https://esm.sh/run"></script>
+    <!-- esm.sh loader -->
+    <script type="module" src="https://esm.sh/run" crossorigin></script>
   </head>
   <body>
     <div id="root"></div>
-    
-    <!-- type="text/tsx" にすることで、上のローダーが自動的に変換・実行します -->
-    <script type="text/tsx" src="./index.tsx"></script>
+    <!-- 拡張子を明示したパスを指定 -->
+    <script type="text/tsx" src="./index.tsx" crossorigin></script>
   </body>
 </html>

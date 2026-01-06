@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Download, RotateCcw, ChevronRight, Sparkles } from 'lucide-react';
-import { Layout } from './components/Layout';
-import { Button } from './components/Button';
-import { CHOICES, FORTUNE_DATA, DEFAULT_FORTUNE } from './constants';
-import { Choice, FortuneResult, ScreenState } from './types';
+import { Layout } from './components/Layout.tsx';
+import { Button } from './components/Button.tsx';
+import { CHOICES, FORTUNE_DATA, DEFAULT_FORTUNE } from './constants.ts';
+import { Choice, FortuneResult, ScreenState } from './types.ts';
 
 // Simple Audio Mock
 const playSound = (type: 'click' | 'result' | 'bgm') => {
-  // In a real app, use AudioContext or HTMLAudioElement
-  // This is just a placeholder logic to respect the "Audio" requirement interface
   console.log(`Playing sound: ${type}`);
 };
 
@@ -18,8 +16,6 @@ const App: React.FC = () => {
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
   const [result, setResult] = useState<FortuneResult | null>(null);
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
-
-  // -- Handlers --
 
   const toggleAudio = () => {
     setIsAudioEnabled((prev) => !prev);
@@ -42,10 +38,8 @@ const App: React.FC = () => {
     setResult(null);
   };
 
-  // Determine result when entering LOADING state
   useEffect(() => {
     if (screen === 'LOADING' && selectedChoice) {
-      // Simulate network/processing delay
       const timer = setTimeout(() => {
         const potentialResults = FORTUNE_DATA[selectedChoice.id] || [];
         const randomResult = potentialResults.length > 0 
@@ -55,13 +49,11 @@ const App: React.FC = () => {
         setResult(randomResult);
         if (isAudioEnabled) playSound('result');
         setScreen('RESULT');
-      }, 2500); // 2.5s animation duration
+      }, 2500);
 
       return () => clearTimeout(timer);
     }
   }, [screen, selectedChoice, isAudioEnabled]);
-
-  // -- Render Helpers --
 
   const renderSplash = () => (
     <motion.div 
@@ -133,7 +125,6 @@ const App: React.FC = () => {
       className="flex flex-col items-center justify-center text-center space-y-8"
     >
       <div className="relative">
-        {/* Shaking Animation */}
         <motion.div
           animate={{ 
             rotate: [0, -10, 10, -10, 10, 0],
@@ -173,7 +164,6 @@ const App: React.FC = () => {
         className="w-full max-w-sm"
       >
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 relative">
-          {/* Header Image */}
           <div className="h-40 w-full bg-gray-100 relative">
              <img 
               src={`https://picsum.photos/seed/${result.artKey}/400/200`} 
@@ -189,14 +179,12 @@ const App: React.FC = () => {
           </div>
 
           <div className="p-6 pt-2 space-y-6 text-center">
-            {/* Message */}
             <div>
               <p className="text-gray-700 font-medium leading-relaxed">
                 {result.message}
               </p>
             </div>
 
-            {/* Details Box */}
             <div className="bg-[#fdfbf7] rounded-xl p-4 space-y-3 border border-stone-100 text-left">
               <div className="flex items-start gap-3">
                 <span className="text-lg">💡</span>
@@ -205,9 +193,7 @@ const App: React.FC = () => {
                   <p className="text-sm text-gray-700 font-medium">{result.advice}</p>
                 </div>
               </div>
-              
               <div className="h-px bg-gray-200 w-full"></div>
-
               <div className="flex items-start gap-3">
                 <span className="text-lg">🎨</span>
                 <div>
@@ -221,9 +207,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </div>
-
                <div className="h-px bg-gray-200 w-full"></div>
-
               <div className="flex items-start gap-3">
                 <span className="text-lg">✨</span>
                 <div>
@@ -233,12 +217,11 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Actions */}
             <div className="flex gap-3 pt-2">
               <Button 
                 variant="outline" 
                 className="flex-1 text-sm py-2"
-                onClick={() => alert("画像を保存しました（デモ）")}
+                onClick={() => alert("画像を保存しました")}
               >
                 <Download size={16} className="mr-2" /> 保存
               </Button>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './App.tsx';
 
 const mountApp = () => {
   const rootElement = document.getElementById('root');
@@ -17,7 +17,6 @@ const mountApp = () => {
   );
 };
 
-// DOMContentLoaded を待ってからマウント（静的ホスティングでの安定性向上）
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', mountApp);
 } else {

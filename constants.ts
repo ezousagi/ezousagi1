@@ -1,4 +1,4 @@
-import { Choice, FortuneResult } from './types';
+import { Choice, FortuneResult } from './types.ts';
 
 export const CHOICES: Choice[] = [
   { id: 'c1', label: '全力投球', description: '目標に向かって走り抜けた一年', icon: '🏃' },
@@ -9,8 +9,6 @@ export const CHOICES: Choice[] = [
   { id: 'c6', label: '自分探し', description: '悩みながらも向き合い続けた一年', icon: '🤔' },
 ];
 
-// In a real app, this would be fetched from Firestore.
-// We mock the structure provided in the prompt.
 export const FORTUNE_DATA: Record<string, FortuneResult[]> = {
   c1: [
     {
@@ -96,7 +94,6 @@ export const FORTUNE_DATA: Record<string, FortuneResult[]> = {
   ]
 };
 
-// Fallback fortune if random selection fails or array is empty
 export const DEFAULT_FORTUNE: FortuneResult = {
   fortune: "小吉",
   message: "お疲れ様でした。今日はゆっくり休みましょう。",
