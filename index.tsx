@@ -2,22 +2,27 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 
-console.log("App initialization started...");
+console.log("System: React initializing...");
 
-const rootElement = document.getElementById('root');
+const startApp = () => {
+  const rootElement = document.getElementById('root');
+  if (!rootElement) {
+    console.error("System Error: Root element not found");
+    return;
+  }
 
-if (rootElement) {
   try {
     const root = createRoot(rootElement);
-    root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    );
-    console.log("React render call completed.");
+    root.render(<App />);
+    console.log("System: Render triggered successfully");
   } catch (err) {
-    console.error("Critical rendering error:", err);
+    console.error("System Error during render:", err);
   }
+};
+
+// DOMの読み込み完了を待ってから実行
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
 } else {
-  console.error("Critical error: Target container 'root' not found.");
+  startApp();
 }

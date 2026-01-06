@@ -1,4 +1,4 @@
-import type { Choice, FortuneResult } from './types.ts';
+import { Choice, FortuneResult } from './types.ts';
 
 export const CHOICES: Choice[] = [
   { id: 'c1', label: '全力投球', description: '目標に向かって走り抜けた一年', icon: '🏃' },
@@ -19,16 +19,6 @@ export const FORTUNE_DATA: Record<string, FortuneResult[]> = {
       luckyColorCode: "#fb923c",
       action: "一番好きなお風呂入浴剤を使う",
       artKey: "happy_rabbit",
-      music: "bright"
-    },
-    {
-      fortune: "中吉",
-      message: "走り抜けたあなたへ。そのスピード感と行動力が、周りの景色を変えてきました。素晴らしい推進力でした。",
-      advice: "一度立ち止まって、深呼吸してみましょう。",
-      lucky: "青緑 (ターコイズ)",
-      luckyColorCode: "#2dd4bf",
-      action: "空を見上げて雲を眺める",
-      artKey: "running_horse",
       music: "bright"
     }
   ],

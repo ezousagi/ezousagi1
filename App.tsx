@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Download, RotateCcw, ChevronRight, Sparkles } from 'lucide-react';
 import { Layout } from './components/Layout.tsx';
@@ -6,9 +6,10 @@ import { Button } from './components/Button.tsx';
 import { CHOICES, FORTUNE_DATA, DEFAULT_FORTUNE } from './constants.ts';
 import { Choice, FortuneResult, ScreenState } from './types.ts';
 
-// Simple Audio Mock
-const playSound = (type: 'click' | 'result' | 'bgm') => {
-  console.log(`Playing sound: ${type}`);
+console.log("App: Component loading...");
+
+const playSound = (type: string) => {
+  console.log(`Audio: ${type}`);
 };
 
 const App: React.FC = () => {
@@ -16,6 +17,10 @@ const App: React.FC = () => {
   const [selectedChoice, setSelectedChoice] = useState<Choice | null>(null);
   const [result, setResult] = useState<FortuneResult | null>(null);
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
+
+  useEffect(() => {
+    console.log("App: Component mounted, screen state:", screen);
+  }, []);
 
   const toggleAudio = () => {
     setIsAudioEnabled((prev) => !prev);
