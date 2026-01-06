@@ -13,7 +13,7 @@
         margin: 0;
       }
       #root:empty::before {
-        content: "読み込み中...";
+        content: "アプリを起動中...";
         display: flex;
         justify-content: center;
         align-items: center;
@@ -21,31 +21,60 @@
         color: #999;
         font-size: 0.9rem;
       }
-      ::-webkit-scrollbar { width: 8px; }
-      ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
+      /* デバッグ用エラー表示 */
+      #error-console {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-height: 150px;
+        overflow-y: auto;
+        background: rgba(0,0,0,0.9);
+        color: #ff5f5f;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 11px;
+        display: none;
+        z-index: 10000;
+        white-space: pre-wrap;
+        border-top: 2px solid #ff5f5f;
+      }
     </style>
     
+    <script>
+      // 読み込み失敗時のための詳細ログ出力
+      window.onerror = function(msg, url, line, col, error) {
+        var log = document.getElementById('error-console');
+        if (log) {
+          log.style.display = 'block';
+          log.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg + '\n  at ' + url + ':' + line + ':' + col;
+        }
+        return false;
+      };
+    </script>
+
     <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@19.0.0",
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "lucide-react": "https://esm.sh/lucide-react@0.460.0",
-    "framer-motion": "https://esm.sh/framer-motion@11.11.11",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0?external=react",
+    "framer-motion": "https://esm.sh/framer-motion@11.11.11?external=react",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
 
-    <!-- esm.sh loader -->
+    <!-- esm.sh run: ブラウザ上で TSX をコンパイル・実行するランタイム -->
     <script type="module" src="https://esm.sh/run" crossorigin></script>
   </head>
   <body>
     <div id="root"></div>
-    <!-- 拡張子を明示したパスを指定 -->
-    <script type="text/tsx" src="./index.tsx" crossorigin></script>
+    <div id="error-console">--- 読み込みエラーログ ---</div>
+    
+    <!-- エントリポイント: 拡張子を明示した相対パス -->
+    <script type="text/tsx" src="./index.tsx"></script>
   </body>
 </html>
