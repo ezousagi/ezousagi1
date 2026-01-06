@@ -26,28 +26,39 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        max-height: 150px;
+        max-height: 200px;
         overflow-y: auto;
-        background: rgba(0,0,0,0.9);
+        background: rgba(0,0,0,0.95);
         color: #ff5f5f;
-        padding: 10px;
+        padding: 15px;
         font-family: monospace;
-        font-size: 11px;
+        font-size: 12px;
         display: none;
         z-index: 10000;
         white-space: pre-wrap;
-        border-top: 2px solid #ff5f5f;
+        border-top: 3px solid #ff4444;
       }
     </style>
     
     <script>
+      // グローバルエラーハンドラー
       window.onerror = function(msg, url, line, col, error) {
         var log = document.getElementById('error-console');
         if (log) {
           log.style.display = 'block';
-          log.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg + (url ? '\n  at ' + url + ':' + line : '');
+          log.textContent += '\n[' + new Date().toLocaleTimeString() + '] Error: ' + msg + 
+            (url ? '\n  at ' + url.split('/').pop() + ':' + line + ':' + col : '');
         }
         return false;
+      };
+      
+      // Promiseの拒否もキャッチ
+      window.onunhandledrejection = function(event) {
+        var log = document.getElementById('error-console');
+        if (log) {
+          log.style.display = 'block';
+          log.textContent += '\n[' + new Date().toLocaleTimeString() + '] Unhandled Rejection: ' + event.reason;
+        }
       };
     </script>
 
@@ -70,7 +81,7 @@
   </head>
   <body>
     <div id="root"></div>
-    <div id="error-console">--- エラーログ ---</div>
+    <div id="error-console">--- アプリケーション実行エラー ---</div>
     
     <!-- エントリポイント -->
     <script type="text/tsx" src="./index.tsx" crossorigin></script>

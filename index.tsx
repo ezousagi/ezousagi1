@@ -2,27 +2,28 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 
-console.log("System: React initializing...");
+console.log("System: Starting initialization...");
 
-const startApp = () => {
-  const rootElement = document.getElementById('root');
-  if (!rootElement) {
-    console.error("System Error: Root element not found");
-    return;
-  }
+const rootElement = document.getElementById('root');
 
+if (rootElement) {
   try {
     const root = createRoot(rootElement);
-    root.render(<App />);
-    console.log("System: Render triggered successfully");
+    console.log("System: Root created, rendering App...");
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+    console.log("System: Render complete.");
   } catch (err) {
-    console.error("System Error during render:", err);
+    console.error("System Error during mount:", err);
+    const log = document.getElementById('error-console');
+    if (log) {
+      log.style.display = 'block';
+      log.textContent += '\nMount Error: ' + (err instanceof Error ? err.message : String(err));
+    }
   }
-};
-
-// DOMの読み込み完了を待ってから実行
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', startApp);
 } else {
-  startApp();
+  console.error("System Error: Element with ID 'root' not found.");
 }
