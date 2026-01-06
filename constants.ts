@@ -1,4 +1,4 @@
-import { Choice, FortuneResult } from './types.ts';
+import type { Choice, FortuneResult } from './types.ts';
 
 export const CHOICES: Choice[] = [
   { id: 'c1', label: '全力投球', description: '目標に向かって走り抜けた一年', icon: '🏃' },

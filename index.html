@@ -21,7 +21,6 @@
         color: #999;
         font-size: 0.9rem;
       }
-      /* デバッグ用エラー表示 */
       #error-console {
         position: fixed;
         bottom: 0;
@@ -42,12 +41,11 @@
     </style>
     
     <script>
-      // 読み込み失敗時のための詳細ログ出力
       window.onerror = function(msg, url, line, col, error) {
         var log = document.getElementById('error-console');
         if (log) {
           log.style.display = 'block';
-          log.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg + '\n  at ' + url + ':' + line + ':' + col;
+          log.textContent += '\n[' + new Date().toLocaleTimeString() + '] ' + msg + (url ? '\n  at ' + url + ':' + line : '');
         }
         return false;
       };
@@ -67,14 +65,14 @@
 }
 </script>
 
-    <!-- esm.sh run: ブラウザ上で TSX をコンパイル・実行するランタイム -->
+    <!-- esm.sh loader -->
     <script type="module" src="https://esm.sh/run" crossorigin></script>
   </head>
   <body>
     <div id="root"></div>
-    <div id="error-console">--- 読み込みエラーログ ---</div>
+    <div id="error-console">--- エラーログ ---</div>
     
-    <!-- エントリポイント: 拡張子を明示した相対パス -->
+    <!-- エントリポイント -->
     <script type="text/tsx" src="./index.tsx"></script>
   </body>
 </html>
